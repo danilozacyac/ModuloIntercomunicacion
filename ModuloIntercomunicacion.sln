@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloIntercomunicacion", "ModuloIntercomunicacion\ModuloIntercomunicacion.csproj", "{946979AC-0076-4A78-93D5-E4BEC400D43D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComparandoDocs", "ComparandoDocs\ComparandoDocs.csproj", "{57C8DBDF-F429-4375-A749-67B829D4EE0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Debug|x86.ActiveCfg = Debug|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Debug|x86.Build.0 = Debug|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Release|Any CPU.ActiveCfg = Release|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Release|x86.ActiveCfg = Release|x86
+		{946979AC-0076-4A78-93D5-E4BEC400D43D}.Release|x86.Build.0 = Release|x86
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{57C8DBDF-F429-4375-A749-67B829D4EE0C}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
