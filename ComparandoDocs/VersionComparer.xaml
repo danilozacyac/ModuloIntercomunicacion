@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignWidth="500"
              Loaded="UserControl_Loaded"
              mc:Ignorable="d">
     <Grid>
@@ -77,6 +77,14 @@
                    VerticalAlignment="Top"
                    Content="{Binding ElementName=FontSizeSlider,
                                      Path=Value}" />
+            <Button Name="button1"
+                    Width="75"
+                    Height="23"
+                    Margin="250,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="button1_Click"
+                    Content="Button" />
         </Grid>
     </Grid>
 </UserControl>
