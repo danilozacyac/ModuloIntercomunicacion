@@ -159,10 +159,29 @@ namespace ComparandoDocs
                         else //Cuando la palabra no coincide y hay que buscar la siguiente coincidencia
                         {
 
-                            this.HighlightChanges(Rev1.Document.ContentStart, revision1[indexRevision]);
+                            ///Buscar hacía adelante, si se encuentra la palabra quiere decir que se elimino alguna frase, por lo que
+                            ///no hay que pintar esa palabra
+                            ///
 
-                            startMarkUpIndex += revision1[indexRevision].Length + 1;
+                            int indexOriginalActual = indexOriginal;
+                            bool foundWord = false;
 
+                            while (indexOriginalActual < (indexOriginal + 5))
+                            {
+                                if (revision1[indexRevision].Equals(original[indexOriginalActual]))
+                                {
+                                    foundWord = true;
+                                    indexOriginal = indexOriginalActual;
+                                    break;
+                                }
+                                indexOriginalActual++;
+                            }
+
+                            if (!foundWord)
+                            {
+                                this.HighlightChanges(Rev1.Document.ContentStart, revision1[indexRevision]);
+                                startMarkUpIndex += revision1[indexRevision].Length + 1;
+                            }
 
                             
                         }
@@ -180,7 +199,9 @@ namespace ComparandoDocs
 
         private void HighlightChanges(TextPointer pointer, String regexMark)
         {
-            Regex reg = new Regex("("+ regexMark + ")", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+            List<int> indices = StringUtilities.IndexOf(pointer.ToString(), regexMark);
+
+            Regex reg = new Regex("("+ regexMark + ")", RegexOptions.Compiled );
             
             bool isFound = false;
 
@@ -191,8 +212,12 @@ namespace ComparandoDocs
                 {
                     var match = reg.Match(start.GetTextInRun(LogicalDirection.Forward));
 
+
+
                     var textrange = new TextRange(start.GetPositionAtOffset(match.Index, LogicalDirection.Forward), start.GetPositionAtOffset(match.Index + match.Length, LogicalDirection.Backward));
-                    textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
+                    
+
+                    //textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
                     textrange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.LightGreen));
                     textrange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
                     start = textrange.End; // I'm not sure if this is correct or skips ahead too far, try it out!!!
@@ -218,7 +243,7 @@ namespace ComparandoDocs
                     //var match = reg.Match(start.GetTextInRun(LogicalDirection.Forward));
 
                     var textrange = new TextRange(start.GetPositionAtOffset(iniMarkUp, LogicalDirection.Forward), start.GetPositionAtOffset(iniMarkUp + endMarkUp, LogicalDirection.Backward));
-                    textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
+                    //textrange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
                     textrange.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.LightGreen));
                     textrange.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
                     start = textrange.End; // I'm not sure if this is correct or skips ahead too far, try it out!!!
