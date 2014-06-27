@@ -10,10 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ComparandoDocs</RootNamespace>
     <AssemblyName>ComparandoDocs</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,25 +33,50 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="RichTextBoxToolBar">
+      <HintPath>..\..\..\..\..\Downloads\RichTextBoxToolBarBin\RichTextBoxToolBar.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="UIControls">
+      <HintPath>..\..\Inventario\Inventario\bin\Debug\UIControls.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\Instancias.cs" />
+    <Compile Include="Dao\Ministros.cs" />
+    <Compile Include="Dao\TesisTextReview.cs" />
     <Compile Include="Documentos.cs" />
+    <Compile Include="Models\InstanciasModel.cs" />
+    <Compile Include="Models\MinistrosModel.cs" />
+    <Compile Include="Models\TesisTextReviewModel.cs" />
+    <Compile Include="Reporting\TesisRtfWordTable.cs" />
+    <Compile Include="Singleton\InstanciasSingleton.cs" />
+    <Compile Include="Singleton\MinistrosSingleton.cs" />
+    <Compile Include="Singleton\TesisSingleton.cs" />
+    <Compile Include="Utilities\MisExtensiones.cs" />
     <Compile Include="Utilities\StringUtilities.cs" />
-    <Compile Include="VersionComparer.xaml.cs">
-      <DependentUpon>VersionComparer.xaml</DependentUpon>
+    <Compile Include="VersionComparerWin.xaml.cs">
+      <DependentUpon>VersionComparerWin.xaml</DependentUpon>
     </Compile>
-    <Page Include="VersionComparer.xaml">
+    <Page Include="VersionComparerWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -78,7 +105,18 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OfficeDocMangement\OfficeDocMangement.csproj">
+      <Project>{8a5262f4-19b2-4cd7-9eeb-3d1b670b708f}</Project>
+      <Name>OfficeDocMangement</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1400527561_internet_connection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1400527575_45415.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
