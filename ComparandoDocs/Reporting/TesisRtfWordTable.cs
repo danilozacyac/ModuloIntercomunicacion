@@ -95,12 +95,12 @@ namespace ComparandoDocs.Reporting
             {
                 ImprimeDocumento();
 
-                foreach (Word.Section wordSection in oDoc.Sections)
-                {
-                    object pagealign = Word.WdPageNumberAlignment.wdAlignPageNumberRight;
-                    object firstpage = true;
-                    wordSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].PageNumbers.Add(ref pagealign, ref firstpage);
-                }
+                //foreach (Word.Section wordSection in oDoc.Sections)
+                //{
+                //    object pagealign = Word.WdPageNumberAlignment.wdAlignPageNumberRight;
+                //    object firstpage = true;
+                //    wordSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].PageNumbers.Add(ref pagealign, ref firstpage);
+                //}
 
                 oWord.ActiveDocument.SaveAs(filepath);
                 oWord.ActiveDocument.Saved = true;
@@ -127,11 +127,11 @@ namespace ComparandoDocs.Reporting
 
             int instancia = 1;
 
-            while (instancia < 4)
+            while (instancia < 5)
             {
                 List<TesisTextReview> listaImprimir = (from n in listaTesis
                                                 where n.Instancia == instancia
-                                                orderby n.DocOriginalPlano
+                                                orderby n.Tatj descending, n.DocOriginalPlano 
                                                 select n).ToList();
 
 
@@ -179,8 +179,8 @@ namespace ComparandoDocs.Reporting
                     //    oTable.Cell(fila, x).Borders.Enable = 1;
                     //}
 
+                    oTable.Range.Font.Name = "Arial";
                     oTable.Range.Font.Size = 9;
-                    oTable.Range.Font.Bold = 0;
 
                     fila++;
 
@@ -193,14 +193,20 @@ namespace ComparandoDocs.Reporting
                     Clipboard.SetText(tesis.DocOriginal, TextDataFormat.Rtf);
                     oTable.Cell(6, 1).Select();
                     oWord.Selection.Paste();
+                    oTable.Cell(6, 1).Range.Font.Name = "Arial";
+                    oTable.Cell(6, 1).Range.Font.Size = 10;
 
                     Clipboard.SetText(tesis.DocRevision1, TextDataFormat.Rtf);
                     oTable.Cell(6, 2).Select();
                     oWord.Selection.Paste();
+                    oTable.Cell(6, 2).Range.Font.Name = "Arial";
+                    oTable.Cell(6, 2).Range.Font.Size = 10;
 
                     Clipboard.SetText(tesis.DocRevision2, TextDataFormat.Rtf);
                     oTable.Cell(6, 3).Select();
                     oWord.Selection.Paste();
+                    oTable.Cell(6, 3).Range.Font.Name = "Arial";
+                    oTable.Cell(6, 3).Range.Font.Size = 10;
 
                     //for (int x = 1; x < 4; x++)
                     //{
@@ -222,6 +228,8 @@ namespace ComparandoDocs.Reporting
                     Word.Paragraph oPara1;
                     oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
                     oPara1.Range.Text = " ";
+
+                    oDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
                 }
                 Clipboard.Clear();
                 instancia++;

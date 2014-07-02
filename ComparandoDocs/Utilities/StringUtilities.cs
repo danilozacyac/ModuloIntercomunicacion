@@ -57,5 +57,20 @@ namespace ComparandoDocs.Utilities
 
             return indices;
         }
+
+        /// <summary>
+        /// Verifica si todas las letras de una palabra son mayúsculas
+        /// </summary>
+        /// <param name="input">Texto a verificar</param>
+        /// <returns></returns>
+        public static bool IsAllUpper(string input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (Char.IsLetter(input[i]) && !Char.IsUpper(input[i]))
+                    return false;
+            }
+            return true;
+        }
     }
 }

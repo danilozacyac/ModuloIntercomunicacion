@@ -64,7 +64,7 @@ namespace ModuloIntercomunicacion
             }
 
             ObservableCollection<TesisTextReview> listaImprimir = (from n in listaTesis
-                                                                   where n.FRecepcionInt >= periodoInicio && n.FRecepcionInt <= periodoFinal
+                                                                   where n.FEnvioInt >= periodoInicio && n.FEnvioInt <= periodoFinal
                                                                    select n).ToList().ToObservableCollection();
 
             TesisRtfWordTable rtf = new TesisRtfWordTable(listaImprimir);

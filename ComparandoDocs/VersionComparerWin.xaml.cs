@@ -9,6 +9,7 @@ using System.Xml;
 using ComparandoDocs.Dao;
 using ComparandoDocs.Models;
 using ComparandoDocs.Singleton;
+using ComparandoDocs.Utilities;
 using Microsoft.Win32;
 using OfficeDocMangement;
 
@@ -319,7 +320,7 @@ namespace ComparandoDocs
                                             Run run = new Run(texto.InnerText);
                                             run.Background = new SolidColorBrush(Colors.SpringGreen);
 
-                                            if (bold.Count > 0)
+                                            if (bold.Count > 0 || StringUtilities.IsAllUpper(texto.InnerText))
                                                 para.Inlines.Add(new Bold(run));
                                             else
                                                 para.Inlines.Add(run);
