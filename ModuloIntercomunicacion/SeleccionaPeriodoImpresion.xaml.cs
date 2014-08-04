@@ -47,6 +47,11 @@ namespace ModuloIntercomunicacion
                 MessageBox.Show("Seleccione el periodo del reporte que desea generar");
                 return;
             }
+            else if (CbxAnio.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione el año del cual quiere generar el reporte");
+                return;
+            }
 
             int mes = Convert.ToInt16(selectedRadio.Name.Replace("Rad",""));
 

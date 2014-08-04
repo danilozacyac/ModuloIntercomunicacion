@@ -127,113 +127,126 @@ namespace ComparandoDocs.Reporting
 
             int instancia = 1;
 
-            while (instancia < 5)
+
+            try
             {
-                List<TesisTextReview> listaImprimir = (from n in listaTesis
-                                                where n.Instancia == instancia
-                                                orderby n.Tatj descending, n.DocOriginalPlano 
-                                                select n).ToList();
 
-
-                foreach (TesisTextReview tesis in listaImprimir)
+                while (instancia < 5)
                 {
-                    Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-
-                    Word.Table oTable = oDoc.Tables.Add(wrdRng, 3, 3, ref oMissing, ref oMissing);
-                    oTable.Range.ParagraphFormat.SpaceAfter = 6;
-                    oTable.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
-                    oTable.Range.Font.Size = 10;
-                    oTable.Borders.Enable = 1;
-                    //oTable.set_Style(Word.WdBuiltinStyle.wdStyleTableLightShadingAccent1);
-
-                    oTable.Columns[1].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
-                    oTable.Columns[2].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
-                    oTable.Columns[3].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
-
-                    oTable.Cell(1, 2).Merge(oTable.Cell(1, 3));
-                    oTable.Cell(1, 1).Merge(oTable.Cell(1, 2));
-                    oTable.Cell(1, 1).Range.Text = "Instancia: " + this.GetInstanciaString(tesis.Instancia);
-                    oTable.Cell(1, 1).Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
+                    List<TesisTextReview> listaImprimir = (from n in listaTesis
+                                                           where n.Instancia == instancia
+                                                           orderby n.Tatj descending, n.DocOriginalPlano
+                                                           select n).ToList();
 
 
+                    foreach (TesisTextReview tesis in listaImprimir)
+                    {
+                        Word.Range wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
 
-                    oTable.Cell(2, 1).Split(4, 1);
-                    oTable.Cell(2, 1).Range.Text = "Ponencia: " + this.GetPonencia(tesis.Ministro);
-                    oTable.Cell(3, 1).Range.Text = "Recepción: " + this.GetFechaString(tesis.FRecepcion);
-                    oTable.Cell(4, 1).Range.Text = "Entrega: " + this.GetFechaString(tesis.FEnvio);
-                    oTable.Cell(5, 1).Range.Text = "Oficio número: " + tesis.Oficio;
+                        Word.Table oTable = oDoc.Tables.Add(wrdRng, 3, 3, ref oMissing, ref oMissing);
+                        oTable.Range.ParagraphFormat.SpaceAfter = 6;
+                        oTable.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
+                        oTable.Range.Font.Size = 10;
+                        oTable.Borders.Enable = 1;
+                        //oTable.set_Style(Word.WdBuiltinStyle.wdStyleTableLightShadingAccent1);
 
+                        oTable.Columns[1].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
+                        oTable.Columns[2].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
+                        oTable.Columns[3].SetWidth(300, Word.WdRulerStyle.wdAdjustSameWidth);
 
-
-
-                    oTable.Cell(2, 2).Range.Text = "TEXTO MODIFICADO A PROPUESTA DE LA COORDINACIÓN DE COMPILACIÓN Y SISTEMATIZACIÓN DE TESIS";
-                    oTable.Cell(2, 2).Range.Font.Bold = 1;
-
-                    oTable.Cell(2, 3).Split(1, 2);
-                    oTable.Cell(2, 3).Range.Text = "TEXTO APROBADO POR LOS MINISTROS DE LA SCJN.";
-                    oTable.Cell(2, 3).Range.Font.Bold = 1;
-                    oTable.Cell(2, 4).Range.Text = (String.IsNullOrEmpty(tesis.ClaveTesis)) ? "TESIS PENDIENTE DE APROBACIÓN" : tesis.ClaveTesis;
-                    oTable.Cell(2, 4).Range.Font.Bold = 1;
-                    //for (int x = 1; x < 4; x++)
-                    //{
-                    //    oTable.Cell(fila, x).Borders.Enable = 1;
-                    //}
-
-                    oTable.Range.Font.Name = "Arial";
-                    oTable.Range.Font.Size = 9;
-
-                    fila++;
+                        oTable.Cell(1, 2).Merge(oTable.Cell(1, 3));
+                        oTable.Cell(1, 1).Merge(oTable.Cell(1, 2));
+                        oTable.Cell(1, 1).Range.Text = "Instancia: " + this.GetInstanciaString(tesis.Instancia);
+                        oTable.Cell(1, 1).Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
 
 
 
-                    
-
-                    //oWord.Visible = true;
-
-                    Clipboard.SetText(tesis.DocOriginal, TextDataFormat.Rtf);
-                    oTable.Cell(6, 1).Select();
-                    oWord.Selection.Paste();
-                    oTable.Cell(6, 1).Range.Font.Name = "Arial";
-                    oTable.Cell(6, 1).Range.Font.Size = 10;
-
-                    Clipboard.SetText(tesis.DocRevision1, TextDataFormat.Rtf);
-                    oTable.Cell(6, 2).Select();
-                    oWord.Selection.Paste();
-                    oTable.Cell(6, 2).Range.Font.Name = "Arial";
-                    oTable.Cell(6, 2).Range.Font.Size = 10;
-
-                    Clipboard.SetText(tesis.DocRevision2, TextDataFormat.Rtf);
-                    oTable.Cell(6, 3).Select();
-                    oWord.Selection.Paste();
-                    oTable.Cell(6, 3).Range.Font.Name = "Arial";
-                    oTable.Cell(6, 3).Range.Font.Size = 10;
-
-                    //for (int x = 1; x < 4; x++)
-                    //{
-                    //    oTable.Cell(fila, x).Borders.Enable = 1;
-                    //}
-
-                    fila++;
-                    numTesis++;
+                        oTable.Cell(2, 1).Split(4, 1);
+                        oTable.Cell(2, 1).Range.Text = "Ponencia: " + this.GetPonencia(tesis.Ministro);
+                        oTable.Cell(3, 1).Range.Text = "Recepción: " + this.GetFechaString(tesis.FRecepcion);
+                        oTable.Cell(4, 1).Range.Text = "Entrega: " + this.GetFechaString(tesis.FEnvio);
+                        oTable.Cell(5, 1).Range.Text = "Oficio número: " + tesis.Oficio;
 
 
-                    oTable = null;
 
-                    object start = oWord.Selection.End - 1;
-                    object end = oWord.Selection.End;
 
-                    Word.Range rng = oDoc.Range(ref start, ref end);
-                    rng.Select();
+                        oTable.Cell(2, 2).Range.Text = "TEXTO MODIFICADO A PROPUESTA DE LA COORDINACIÓN DE COMPILACIÓN Y SISTEMATIZACIÓN DE TESIS";
+                        oTable.Cell(2, 2).Range.Font.Bold = 1;
 
-                    Word.Paragraph oPara1;
-                    oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
-                    oPara1.Range.Text = " ";
+                        oTable.Cell(2, 3).Split(1, 2);
+                        oTable.Cell(2, 3).Range.Text = "TEXTO APROBADO POR LOS MINISTROS DE LA SCJN.";
+                        oTable.Cell(2, 3).Range.Font.Bold = 1;
+                        oTable.Cell(2, 4).Range.Text = (String.IsNullOrEmpty(tesis.ClaveTesis)) ? "TESIS PENDIENTE DE APROBACIÓN" : tesis.ClaveTesis;
+                        oTable.Cell(2, 4).Range.Font.Bold = 1;
+                        //for (int x = 1; x < 4; x++)
+                        //{
+                        //    oTable.Cell(fila, x).Borders.Enable = 1;
+                        //}
 
-                    oDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
+                        oTable.Range.Font.Name = "Arial";
+                        oTable.Range.Font.Size = 9;
+
+                        fila++;
+
+
+
+
+
+                        //oWord.Visible = true;
+
+                        Clipboard.SetText(tesis.DocOriginal, TextDataFormat.Rtf);
+                        oTable.Cell(6, 1).Select();
+                        oWord.Selection.Paste();
+                        oTable.Cell(6, 1).Range.Font.Name = "Arial";
+                        oTable.Cell(6, 1).Range.Font.Size = 10;
+
+                        Clipboard.SetText(tesis.DocRevision1, TextDataFormat.Rtf);
+                        oTable.Cell(6, 2).Select();
+                        oWord.Selection.Paste();
+                        oTable.Cell(6, 2).Range.Font.Name = "Arial";
+                        oTable.Cell(6, 2).Range.Font.Size = 10;
+
+                        Clipboard.SetText(tesis.DocRevision2, TextDataFormat.Rtf);
+                        oTable.Cell(6, 3).Select();
+                        oWord.Selection.Paste();
+                        oTable.Cell(6, 3).Range.Font.Name = "Arial";
+                        oTable.Cell(6, 3).Range.Font.Size = 10;
+
+                        //for (int x = 1; x < 4; x++)
+                        //{
+                        //    oTable.Cell(fila, x).Borders.Enable = 1;
+                        //}
+
+                        fila++;
+                        numTesis++;
+
+
+                        oTable = null;
+
+                        object start = oWord.Selection.End - 1;
+                        object end = oWord.Selection.End;
+
+                        Word.Range rng = oDoc.Range(ref start, ref end);
+                        rng.Select();
+
+                        Word.Paragraph oPara1;
+                        oPara1 = oDoc.Content.Paragraphs.Add(ref oMissing);
+                        oPara1.Range.Text = " ";
+
+                        oDoc.Words.Last.InsertBreak(Word.WdBreakType.wdPageBreak);
+                    }
+                    Clipboard.Clear();
+                    instancia++;
                 }
-                Clipboard.Clear();
-                instancia++;
+
             }
+            catch (Exception ex)
+            {
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, methodName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        
         }
 
         private string GetFechaString(DateTime? fecha)
